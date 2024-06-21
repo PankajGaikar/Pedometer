@@ -10,7 +10,8 @@ import HealthKit
 
 @MainActor
 class DashboardViewModel: ObservableObject {
-    @Published var stepCount: Int = 0
+    @Published private var stepCount: Int = 0
+    @Published var stepSamples: [StepSample] = []
 
     private var healthStore = HKHealthStore()
 
@@ -19,30 +20,35 @@ class DashboardViewModel: ObservableObject {
 
         healthStore.requestAuthorization(toShare: nil, read: [stepType]) { success, error in
             if success {
-                self.fetchStepCount()
+                self.fetchStepsWithTimestamps()
             } else {
                 // Handle the error here.
             }
         }
     }
-
-    func fetchStepCount() {
+    
+    func fetchStepsWithTimestamps() {
         let stepType = HKQuantityType.quantityType(forIdentifier: .stepCount)!
         let startDate = Calendar.current.startOfDay(for: Date())
         let endDate = Date()
         let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: .strictStartDate)
 
-        let query = HKStatisticsQuery(quantityType: stepType, quantitySamplePredicate: predicate, options: .cumulativeSum) { _, result, _ in
-            guard let result = result, let sum = result.sumQuantity() else {
+        let query = HKSampleQuery(sampleType: stepType, predicate: predicate, limit: HKObjectQueryNoLimit, sortDescriptors: nil) { _, samples, error in
+            guard let samples = samples as? [HKQuantitySample] else {
                 // Handle the error here.
                 return
             }
-            self.stepCount = Int(sum.doubleValue(for: HKUnit.count()))
-                // Add additional code here to fetch other statistics like calories, distance, and active minutes
+
+            let stepSamples = samples.map { sample in
+                StepSample(count: Int(sample.quantity.doubleValue(for: HKUnit.count())), date: sample.startDate)
+            }
+
+            self.stepSamples = stepSamples
         }
 
         healthStore.execute(query)
     }
+
     
     
 }

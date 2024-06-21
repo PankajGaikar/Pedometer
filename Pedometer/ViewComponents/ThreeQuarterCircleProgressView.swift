@@ -29,25 +29,49 @@ struct ThreeQuarterCircleProgressView: View {
     var body: some View {
         ZStack {
             ThreeQuarterCircleShape()
-                .stroke(Color.gray.opacity(0.3), lineWidth: 20)
+                .stroke(Color.gray.opacity(0.3), lineWidth: 30)
             
             ThreeQuarterCircleShape(progress: clampedProgress / total)
-                .stroke(progressColor, lineWidth: 20)
+                .stroke(
+                    AngularGradient(
+                        gradient: Gradient(stops: [
+                            .init(color: Color(hex: "ED4D4D"), location: 0.0),
+                            .init(color: Color(hex: "E59148"), location: 0.25),
+                            .init(color: Color(hex: "EFBF39"), location: 0.5),
+                            .init(color: Color(hex: "EEED56"), location: 0.75),
+                            .init(color: Color(hex: "32E1A0"), location: 1.0)
+                        ]),
+                        center: .center,
+                        startAngle: .degrees(135),
+                        endAngle: .degrees(405)
+                    ),
+                    lineWidth: 30
+                )
                 .animation(.easeInOut(duration: 1), value: clampedProgress / total)
             
-            VStack {
-                Text("\(Int(progress))")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .foregroundColor(progressColor)
-                
-                Text("Steps")
-                    .font(.headline)
-                    .foregroundColor(.secondary)
+                ZStack {
+                    VStack {
+                        Text("\(Int(progress))")
+                            .font(.largeTitle)
+                            .fontWeight(.bold)
+                            .foregroundColor(progressColor)
+                        
+                        Text("Steps")
+                            .font(.title3)
+                            .foregroundColor(.secondary)
+                    }
+                    VStack {
+                        Spacer()
+                        
+                        Text("from \(Int(total))")
+                            .font(.headline)
+                            .foregroundColor(.secondary)
+                            .padding(.bottom)
+                    }
             }
         }
         .padding()
-        .frame(width: UIScreen.main.bounds.width * 0.7, height:  UIScreen.main.bounds.width * 0.7)
+        .frame(width: UIScreen.main.bounds.width * 0.6, height:  UIScreen.main.bounds.width * 0.6)
     }
 }
 
@@ -61,6 +85,13 @@ struct ThreeQuarterCircleShape: Shape {
                     startAngle: .degrees(135),
                     endAngle: .degrees(135 + 270 * progress),
                     clockwise: false)
+
         return path
+    }
+}
+
+struct ContentView_1Previews: PreviewProvider {
+    static var previews: some View {
+        DashboardContainerView()
     }
 }

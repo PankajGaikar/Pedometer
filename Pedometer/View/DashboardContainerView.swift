@@ -15,7 +15,7 @@ struct DashboardContainerView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                ThreeQuarterCircleProgressView(progress: Double(viewModel.stepCount), total: 10000)
+                ThreeQuarterCircleProgressView(progress: Double(viewModel.stepSamples.reduce(0) { $0 + $1.count }), total: 10000)
                     .padding(.top)
                 
                 Spacer()
