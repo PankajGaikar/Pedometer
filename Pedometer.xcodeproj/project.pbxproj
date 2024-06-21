@@ -7,17 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5572EB6C2C261BD400FDC925 /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5572EB6B2C261BD400FDC925 /* DashboardViewModel.swift */; };
+		5572EB702C261C0700FDC925 /* ThreeQuarterCircleProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5572EB6F2C261C0700FDC925 /* ThreeQuarterCircleProgressView.swift */; };
 		6CF2B34A2C2581130044D567 /* PedometerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF2B3492C2581130044D567 /* PedometerApp.swift */; };
-		6CF2B34C2C2581130044D567 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF2B34B2C2581130044D567 /* ContentView.swift */; };
+		6CF2B34C2C2581130044D567 /* DashboardContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CF2B34B2C2581130044D567 /* DashboardContainerView.swift */; };
 		6CF2B34E2C2581150044D567 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CF2B34D2C2581150044D567 /* Assets.xcassets */; };
 		6CF2B3512C2581150044D567 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CF2B3502C2581150044D567 /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5572EB6B2C261BD400FDC925 /* DashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewModel.swift; sourceTree = "<group>"; };
+		5572EB6F2C261C0700FDC925 /* ThreeQuarterCircleProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreeQuarterCircleProgressView.swift; sourceTree = "<group>"; };
 		6CDEBDB42C2582CE006CCDB2 /* Pedometer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Pedometer.entitlements; sourceTree = "<group>"; };
 		6CF2B3462C2581130044D567 /* Pedometer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pedometer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CF2B3492C2581130044D567 /* PedometerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PedometerApp.swift; sourceTree = "<group>"; };
-		6CF2B34B2C2581130044D567 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		6CF2B34B2C2581130044D567 /* DashboardContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardContainerView.swift; sourceTree = "<group>"; };
 		6CF2B34D2C2581150044D567 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6CF2B3502C2581150044D567 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -33,6 +37,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5572EB682C261BA500FDC925 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				6CF2B34B2C2581130044D567 /* DashboardContainerView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		5572EB692C261BAF00FDC925 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				6CF2B34D2C2581150044D567 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		5572EB6A2C261BBE00FDC925 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				5572EB6B2C261BD400FDC925 /* DashboardViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		5572EB6E2C261BF500FDC925 /* ViewComponents */ = {
+			isa = PBXGroup;
+			children = (
+				5572EB6F2C261C0700FDC925 /* ThreeQuarterCircleProgressView.swift */,
+			);
+			path = ViewComponents;
+			sourceTree = "<group>";
+		};
 		6CF2B33D2C2581130044D567 = {
 			isa = PBXGroup;
 			children = (
@@ -52,10 +88,12 @@
 		6CF2B3482C2581130044D567 /* Pedometer */ = {
 			isa = PBXGroup;
 			children = (
+				5572EB692C261BAF00FDC925 /* Resources */,
+				5572EB682C261BA500FDC925 /* View */,
+				5572EB6E2C261BF500FDC925 /* ViewComponents */,
+				5572EB6A2C261BBE00FDC925 /* ViewModel */,
 				6CDEBDB42C2582CE006CCDB2 /* Pedometer.entitlements */,
 				6CF2B3492C2581130044D567 /* PedometerApp.swift */,
-				6CF2B34B2C2581130044D567 /* ContentView.swift */,
-				6CF2B34D2C2581150044D567 /* Assets.xcassets */,
 				6CF2B34F2C2581150044D567 /* Preview Content */,
 			);
 			path = Pedometer;
@@ -139,7 +177,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6CF2B34C2C2581130044D567 /* ContentView.swift in Sources */,
+				5572EB6C2C261BD400FDC925 /* DashboardViewModel.swift in Sources */,
+				5572EB702C261C0700FDC925 /* ThreeQuarterCircleProgressView.swift in Sources */,
+				6CF2B34C2C2581130044D567 /* DashboardContainerView.swift in Sources */,
 				6CF2B34A2C2581130044D567 /* PedometerApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -11,7 +11,7 @@ import SwiftUI
 struct PedometerApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            DashboardContainerView()
         }
     }
 }
