@@ -10,8 +10,9 @@ import HealthKit
 import Charts
 
 struct DashboardContainerView: View {
-
+    
     @StateObject var viewModel: DashboardViewModel = DashboardViewModel()
+    @State private var showWeeklyGoalSummary = false
     
     var body: some View {
         NavigationStack {
@@ -25,11 +26,17 @@ struct DashboardContainerView: View {
                         .frame(height: UIScreen.main.bounds.width * 0.6)
                         .padding(.horizontal)
                     
-                    WeeklyGoalTrackerView(dailySteps: viewModel.dailySteps)
-                        .padding()
-
-                    WeeklyGoalSummaryView(dailySteps: viewModel.dailySteps)
-                        .padding()
+                    // Toggle view with animation
+                    if showWeeklyGoalSummary {
+                        WeeklyGoalSummaryView(dailySteps: viewModel.dailySteps)
+                            .padding()
+                            .transition(.opacity)
+                    } else {
+                        WeeklyGoalTrackerView(dailySteps: viewModel.dailySteps)
+                            .padding()
+                            .transition(.opacity)
+                    }
+                    
                     Spacer()
                 }
             }
@@ -37,8 +44,12 @@ struct DashboardContainerView: View {
             .navigationBarTitleDisplayMode(.inline)
         }
         .onAppear(perform: viewModel.requestAuthorization)
+        .onTapGesture {
+            withAnimation {
+                showWeeklyGoalSummary.toggle()
+            }
+        }
     }
-
 }
 
 struct ContentView_Previews: PreviewProvider {
