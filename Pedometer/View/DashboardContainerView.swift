@@ -7,6 +7,7 @@
 
 import SwiftUI
 import HealthKit
+import Charts
 
 struct DashboardContainerView: View {
 
@@ -16,8 +17,12 @@ struct DashboardContainerView: View {
         NavigationStack {
             VStack {
                 ThreeQuarterCircleProgressView(progress: Double(viewModel.stepSamples.reduce(0) { $0 + $1.count }), total: 10000)
+                    .frame(width: UIScreen.main.bounds.width * 0.6, height: UIScreen.main.bounds.width * 0.6)
                     .padding(.top)
                 
+                DailyStepChartView(samples: viewModel.stepSamples)
+                    .frame(height: UIScreen.main.bounds.width * 0.6)
+                    .padding(.horizontal)
                 Spacer()
             }
             .navigationTitle("Pedometer")

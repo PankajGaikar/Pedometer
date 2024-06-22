@@ -71,7 +71,6 @@ struct ThreeQuarterCircleProgressView: View {
             }
         }
         .padding()
-        .frame(width: UIScreen.main.bounds.width * 0.6, height:  UIScreen.main.bounds.width * 0.6)
     }
 }
 

@@ -35,3 +35,8 @@ extension Color {
     }
 }
 
+extension Date {
+    var yesterday: Date? {
+        return Calendar.current.date(byAdding: .day, value: -2, to: self)
+    }
+}

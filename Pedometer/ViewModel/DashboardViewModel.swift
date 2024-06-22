@@ -48,7 +48,4 @@ class DashboardViewModel: ObservableObject {
 
         healthStore.execute(query)
     }
-
-    
-    
 }
