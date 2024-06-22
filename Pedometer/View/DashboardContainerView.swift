@@ -15,15 +15,23 @@ struct DashboardContainerView: View {
     
     var body: some View {
         NavigationStack {
-            VStack {
-                ThreeQuarterCircleProgressView(progress: Double(viewModel.stepSamples.reduce(0) { $0 + $1.count }), total: 10000)
-                    .frame(width: UIScreen.main.bounds.width * 0.6, height: UIScreen.main.bounds.width * 0.6)
-                    .padding(.top)
-                
-                DailyStepChartView(samples: viewModel.stepSamples)
-                    .frame(height: UIScreen.main.bounds.width * 0.6)
-                    .padding(.horizontal)
-                Spacer()
+            ScrollView {
+                VStack {
+                    ThreeQuarterCircleProgressView(progress: Double(viewModel.stepSamples.reduce(0) { $0 + $1.count }), total: 10000)
+                        .frame(width: UIScreen.main.bounds.width * 0.6, height: UIScreen.main.bounds.width * 0.6)
+                        .padding(.top)
+                    
+                    DailyStepChartView(samples: viewModel.stepSamples)
+                        .frame(height: UIScreen.main.bounds.width * 0.6)
+                        .padding(.horizontal)
+                    
+                    WeeklyGoalTrackerView(dailySteps: viewModel.dailySteps)
+                        .padding()
+
+                    WeeklyGoalSummaryView(dailySteps: viewModel.dailySteps)
+                        .padding()
+                    Spacer()
+                }
             }
             .navigationTitle("Pedometer")
             .navigationBarTitleDisplayMode(.inline)
