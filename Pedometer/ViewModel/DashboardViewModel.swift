@@ -10,9 +10,9 @@ import HealthKit
 
 @MainActor
 class DashboardViewModel: ObservableObject {
-    @Published private var stepCount: Int = 0
-    @Published var stepSamples: [StepSample] = []
-    @Published var dailySteps: [DayStep] = []
+    @Published var dailySteps: [StepSample] = []
+    @Published var weeklySteps: [DayStep] = []
+    var date: Date = Date()
 
     private var healthStore = HKHealthStore()
 
@@ -45,12 +45,12 @@ class DashboardViewModel: ObservableObject {
                 StepSample(count: Int(sample.quantity.doubleValue(for: HKUnit.count())), date: sample.startDate)
             }
 
-            self.stepSamples = stepSamples
+            self.dailySteps = stepSamples
         }
 
         healthStore.execute(query)
     }
-    
+
     func fetchWeeklySteps() {
         let calendar = Calendar.current
         let now = Date()
@@ -94,7 +94,7 @@ class DashboardViewModel: ObservableObject {
             }
             
             // Assign the sorted array to your property
-            self.dailySteps = dailySteps
+            self.weeklySteps = dailySteps
         }
     }
 

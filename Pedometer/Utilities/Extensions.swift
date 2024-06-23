@@ -37,6 +37,14 @@ extension Color {
 
 extension Date {
     var yesterday: Date? {
-        return Calendar.current.date(byAdding: .day, value: -2, to: self)
+        return Calendar.current.date(byAdding: .day, value: -1, to: self)
+    }
+    
+    var startOfDay: Date {
+        return Calendar.current.startOfDay(for: self)
+    }
+
+    func endOfDay() -> Date {
+        return Calendar.current.date(bySettingHour: 23, minute: 59, second: 59, of: self) ?? self
     }
 }

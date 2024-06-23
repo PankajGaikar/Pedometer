@@ -13,28 +13,41 @@ struct DashboardContainerView: View {
     
     @StateObject var viewModel: DashboardViewModel = DashboardViewModel()
     @State private var showWeeklyGoalSummary = false
-    
+    @State private var selectedDate = Date()
+
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack {
-                    ThreeQuarterCircleProgressView(progress: Double(viewModel.stepSamples.reduce(0) { $0 + $1.count }), total: 10000)
+                    DatePickerView(selectedDate: $selectedDate)
+
+                    ThreeQuarterCircleProgressView(progress: Double(viewModel.dailySteps.reduce(0) { $0 + $1.count }), total: 10000)
                         .frame(width: UIScreen.main.bounds.width * 0.6, height: UIScreen.main.bounds.width * 0.6)
                         .padding(.top)
                     
-                    DailyStepChartView(samples: viewModel.stepSamples)
+                    DailyStepChartView(samples: viewModel.dailySteps)
                         .frame(height: UIScreen.main.bounds.width * 0.6)
                         .padding(.horizontal)
                     
                     // Toggle view with animation
                     if showWeeklyGoalSummary {
-                        WeeklyGoalSummaryView(dailySteps: viewModel.dailySteps)
+                        WeeklyGoalSummaryView(dailySteps: viewModel.weeklySteps)
                             .padding()
                             .transition(.opacity)
+                            .onTapGesture {
+                                withAnimation {
+                                    showWeeklyGoalSummary.toggle()
+                                }
+                            }
                     } else {
-                        WeeklyGoalTrackerView(dailySteps: viewModel.dailySteps)
+                        WeeklyGoalTrackerView(dailySteps: viewModel.weeklySteps)
                             .padding()
                             .transition(.opacity)
+                            .onTapGesture {
+                                withAnimation {
+                                    showWeeklyGoalSummary.toggle()
+                                }
+                            }
                     }
                     
                     Spacer()
@@ -44,10 +57,11 @@ struct DashboardContainerView: View {
             .navigationBarTitleDisplayMode(.inline)
         }
         .onAppear(perform: viewModel.requestAuthorization)
-        .onTapGesture {
-            withAnimation {
-                showWeeklyGoalSummary.toggle()
-            }
+        .onChange(of: selectedDate) { _ in
+            // Add your action here
+            print("Selected date changed to: \(selectedDate)")
+            viewModel.date = selectedDate
+            viewModel.fetchStepsWithTimestamps()
         }
     }
 }
